@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*/__pycache__/
+*/*/__pycache__
+anthropic_messages.ipynb
+dist/
+build/
+*.egg-info/
