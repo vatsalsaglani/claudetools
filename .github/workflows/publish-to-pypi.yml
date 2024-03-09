@@ -4,7 +4,7 @@ name: Publish `claudetools` ⚒️ to PyPi
     tags:
       - v*
     branches:
-      - main
+      - release/*
 jobs:
   build-an-publish:
     runs-on: ubuntu-latest
