@@ -11,4 +11,4 @@ setup(
     url="https://github.com/vatsalsaglani/claudetools",
     packages=find_packages(),
     install_requires=["httpx==0.25.0", "anthropic==0.19.1", "pydantic==2.4.2"],
-    python_requires=">=3.9")
+    python_requires=">=3.7")
