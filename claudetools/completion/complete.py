@@ -11,5 +11,5 @@ class Complete:
         output = self.client.messages.create(model=model,
                                              messages=messages,
                                              **kwargs)
-        print("MODEL OUTPUT\n", output)
+        # print("MODEL OUTPUT\n", output)
         return output.content[0].text

@@ -51,7 +51,7 @@ class BaseTool(ABC):
             if tool_choice:
                 ToolChoice.model_validate(tool_choice)
                 tool_name = tool_choice.get("name")
-                print(tool_choice, type(tool_choice))
+                # print(tool_choice, type(tool_choice))
                 system = SINGLE_FUNCTION_SPECIFIC_CALL.format(
                     functions=tools, function_name=tool_name)
             else:
