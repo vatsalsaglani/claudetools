@@ -23,6 +23,6 @@ jobs:
           python setup.py sdist bdist_wheel
           twine check dist/*
       - name: Publish package to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@release/v2
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
