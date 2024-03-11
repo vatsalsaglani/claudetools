@@ -11,6 +11,7 @@ With `claudetools` one can now use any model from the **Claude 3** family of mod
 - **Flexible Tool Definition**: Specify function names, descriptions, and parameters using the Pydantic library for type safety and validation.
 - **Multiple Tools Support**: Opt to call multiple tools within a single prompt, enabling more complex interactions.
 - **Customizable System Prompts**: Attach custom system prompts to your conversations for better context and control.
+- **Bedrock Client**: Use Claude 3 via AWS Bedrock for function calling.
 
 
 ## Installation
@@ -166,6 +167,87 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## Bedrock Example
+
+> Currently, only the sync client supports AWS Bedrock.
+
+```py
+import asyncio
+from claudetools.tools.tool import Tool
+from pydantic import BaseModel, Field
+from typing import List, Dict
+import json
+
+AWS_ACCESS_KEY=""
+AWS_SECRET_KEY=""
+AWS_REGION=""
+# or
+AWS_SESSION_TOKEN=""
+
+# create a tool instance with your aws access and secret keys
+tool = Tool(aws_access_key=AWS_ACCESS_KEY,
+            aws_secret_key=AWS_SECRET_KEY,
+            aws_region=AWS_REGION)
+# to use session token from AWS STS use the following
+# tool = Tool(aws_session_token=AWS_SESSION_TOKEN, aws_region=AWS_REGION)
+
+
+# define your function parameters
+class AddTodo(BaseModel):
+    text: str = Field(..., description="Text to add for the TODO to remember.")
+
+class MarkCompleted(BaseModel):
+    text: str = Field(..., description="Text of the completed TODO.")
+
+
+class ReOpen(BaseModel):
+    text: str = Field(..., description="Text of the TODO to reopen.")
+
+
+# specify the functions you want to use
+functions = [{
+    "name": "AddTodo",
+    "description": "Add a TODO with text to remember.",
+    "parameters": AddTodo.model_json_schema()
+}, {
+    "name": "MarkCompleted",
+    "description": "Get text of the todo mark it complete",
+    "parameters": MarkCompleted.model_json_schema()
+}, {
+    "name": "ReOpen",
+    "description": "Get text of the todo reopen it.",
+    "parameters": ReOpen.model_json_schema()
+}]
+
+# set up the user messages
+user_messages = [{
+    "role":
+    "user",
+    "content":
+    """I have to pick up my daughter from school. After which I've to do the laundary. And now I need to cook lunch."""
+}]
+
+# dependency prompt to attach to the main system prompt
+DEPENDENCY_PROMPT = """You are a helpful assistant that helps a user with their tasks and todos. The user can add a todos, mark todos as completed, or reopen certain todos.
+The user can provide multiple actions at once so you've to break those down and call the appropriate functions in the correct sequence."""
+
+
+# call the tool with the required parameters
+output = tool(model="claude-3-sonnet-20240229",
+              messages=user_messages,
+              tools=functions,
+              tool_choice=None,
+              multiple_tools=True,
+              attach_system=DEPENDENCY_PROMPT,
+              max_tokens=3000)
+
+if output:
+    print(json.dumps(output, indent=4))
+else:
+    print("Unable to find a function!")
+```
+
 
 ## Requirements
 
