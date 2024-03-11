@@ -75,8 +75,17 @@ class BaseTool(ABC):
 
 class Tool(BaseTool):
 
-    def __init__(self, anthropic_api_key: str):
-        self.complete = Complete(anthropic_api_key)
+    def __init__(self,
+                 anthropic_api_key: Union[str, None] = None,
+                 aws_access_key: Union[str, None] = None,
+                 aws_secret_key: Union[str, None] = None,
+                 aws_region: Union[str, None] = None,
+                 aws_session_token: Union[str, None] = None):
+        self.complete = Complete(anthropic_api_key=anthropic_api_key,
+                                 aws_secret_key=aws_secret_key,
+                                 aws_access_key=aws_access_key,
+                                 aws_region=aws_region,
+                                 aws_session_token=aws_session_token)
 
     async def perform_model_call(self, model, messages, system, **kwargs):
         return self.complete(model, messages, system=system, **kwargs)
