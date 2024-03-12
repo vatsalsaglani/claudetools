@@ -21,7 +21,7 @@ You can install `claudetools` from PyPI or directly from the source:
 ### From PyPi
 
 ```bash
-pip install caludetools
+pip install claudetools
 ```
 
 ### Install from source
