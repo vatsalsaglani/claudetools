@@ -1,4 +1,4 @@
-from anthropic import Anthropic
+from anthropic import Anthropic, AnthropicBedrock
 from typing import List, Dict, Union
 
 
@@ -15,10 +15,10 @@ class Complete:
         else:
 
             if aws_session_token:
-                self.client = Anthropic(aws_session_token=aws_session_token,
+                self.client = AnthropicBedrock(aws_session_token=aws_session_token,
                                         aws_region=aws_region)
             else:
-                self.client = Anthropic(aws_access_key=aws_access_key,
+                self.client = AnthropicBedrock(aws_access_key=aws_access_key,
                                         aws_secret_key=aws_secret_key,
                                         aws_region=aws_region)
 
