@@ -5,6 +5,8 @@ name: Publish `claudetools` ⚒️ to PyPi
       - v*
     branches:
       - release/*
+  workflow_dispatch:
+  
 jobs:
   build-an-publish:
     runs-on: ubuntu-latest
