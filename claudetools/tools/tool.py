@@ -26,7 +26,7 @@ class ToolChoice(BaseModel):
 
 class Message(BaseModel):
     role: Literal["user", "assistant"]
-    content: str
+    content: Union[str, List, List[Dict]]
 
 
 class Messages(BaseModel):
