@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="claudetools",
-    version="1.0.1",
+    version="1.0.2",
     author="Vatsal J. Saglani",
     author_email="saglanivatsal@gmail.com",
     description=
@@ -11,5 +11,5 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/vatsalsaglani/claudetools",
     packages=find_packages(),
-    install_requires=["httpx==0.25.0", "anthropic==0.19.1", "pydantic==2.4.2"],
+    install_requires=["httpx>=0.25.0", "anthropic>=0.31.0", "pydantic>=2.4.2"],
     python_requires=">=3.7")
