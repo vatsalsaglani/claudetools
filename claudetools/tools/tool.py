@@ -26,7 +26,7 @@ class ToolChoice(BaseModel):
 
 class Message(BaseModel):
     role: Literal["user", "assistant"]
-    content: str
+    content: Union[str, List, List[Dict]]
 
 
 class Messages(BaseModel):
@@ -106,11 +106,18 @@ class Tool(BaseTool):
 class AsyncTool(BaseTool):
 
     def __init__(self,
-                 anthropic_api_key: str,
-                 anthropic_version: str = "2023-06-01",
-                 anthropic_base_url: str = "https://api.anthropic.com/v1"):
-        self.complete = AsyncComplete(anthropic_api_key, anthropic_version,
-                                      anthropic_base_url)
+                 anthropic_api_key: Union[str, None] = None,
+                 aws_access_key: Union[str, None] = None,
+                 aws_secret_key: Union[str, None] = None,
+                 aws_region: Union[str, None] = None,
+                 aws_session_token: Union[str, None] = None):
+        # self.complete = AsyncComplete(anthropic_api_key, anthropic_version,
+        #                               anthropic_base_url)
+        self.complete = AsyncComplete(anthropic_api_key=anthropic_api_key,
+                                      aws_secret_key=aws_secret_key,
+                                      aws_access_key=aws_access_key,
+                                      aws_region=aws_region,
+                                      aws_session_token=aws_session_token)
 
     async def perform_model_call(self, model, messages, system, **kwargs):
         return await self.complete(model, messages, system=system, **kwargs)
