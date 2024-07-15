@@ -1,5 +1,5 @@
 httpx==0.25.0
-anthropic[bedrock]==0.19.1
+anthropic[bedrock]==0.31.0
 pydantic==2.4.2
 python-dotenv==1.0.0
 
