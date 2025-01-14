@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="claudetools",
-    version="1.0.2",
+    version="1.0.3",
     author="Vatsal J. Saglani",
     author_email="saglanivatsal@gmail.com",
     description=
