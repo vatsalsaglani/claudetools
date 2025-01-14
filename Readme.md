@@ -1,3 +1,5 @@
+[![Downloads](https://static.pepy.tech/badge/claudetools)](https://pepy.tech/project/claudetools)
+
 # Claudetools
 
 **Claudetools** is a Python library that provides a convenient way to use Claude 3 family's structured data generation capabilities for function calling. The function calling capabilities are similar to ones available with OpenAI models.
